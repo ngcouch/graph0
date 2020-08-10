@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <script type="text/javascript" src="jsPsych/jspsych.js"></script>
+    <script type="text/javascript" src="jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
+    <script type="text/javascript" src="jsPsych/plugins/jspsych-image-keyboard-response.js"></script>
+    <script type="text/javascript" src="jsPsych/plugins/jspsych-survey-text.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="jsPsych/plugins/jspsych-html-slider-response.js"></script>
+    <link href="jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"/>
+
+  </head>
+  <body>
+  </body>
+
+  <script>
+
+
+    // Set up the conditions dictionary
+
+    // Get participant information and use it to derive their condition number.
+
+    var ID = window.prompt("Enter your participant ID:")
+
+    /*
+    while (!Object.keys(conditions).includes(ID)) {
+
+	var ID = window.prompt("ID not found. Please check again, or contact the experimenter.")
+
+    }
+    */
+ 
+    // Structure and assemble the experiment.
+    
+    var timeline = []
+
+    var welcome = {type: "html-keyboard-response",
+		   stimulus: "Welcome to the experiment, and thank you for your time! Press any key to continue."
+		  };
+    timeline.push(welcome)
+
+    var instructions = {type: "html-keyboard-response",
+			stimulus: "<p>In this experiment, you will be pairs of items and will be asked to decide if they go together or not. If you decide they go together, press F. If they do not, press J. After your guess, you will be told if you are correct. You will repeat this process multiple times. Press spacebar to continue.</p>",
+			choices: [32]
+		       };
+
+    timeline.push(instructions)
+
+    
+    jsPsych.init({
+	timeline: timeline,
+	on_finish: function() {
+	    $.ajax({
+		type: "POST",
+		url: "/experiment-data",
+		data: jsPsych.data.get().json(),
+		contentType: "application/json"
+	    })
+		.done(function() {
+		    alert("Thank you!")
+		})
+		.fail(function() {
+		    alert("A problem occurred while writing to the database. Please contact the researcher for more information.")
+		})
+	}
+    })
+
+    </script>
+</html>
