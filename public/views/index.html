@@ -52,13 +52,13 @@
 		     }
 
 	var feedback_trial = {type: "html-keyboard-response",
-			      stimulus: trial_stim + function() {
+			      stimulus:function() {
 				  var last_trial = jsPsych.data.get().last(1).values()[0].correct;
 				  if (last_trial) {
-				      return "<p><big>Correct!</big></p>"
+				      return  trial_stim + "<p><big>Correct!</big></p>"
 				  }
 				  else {
-				      return "<p><big>Incorrect!</big></p>"
+				      return  trial_stim + "<p><big>Incorrect!</big></p>"
 				  }
 			      },
 			      response_ends_trial: function() {
