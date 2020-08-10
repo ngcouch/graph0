@@ -90,15 +90,15 @@
 			choices: [32]
 		       };
 
-	timeline.push(instructions)
+    timeline.push(instructions)
 
-	trials_array = trial_pair("John", "Mary", present = false)
-
-    console.log(trials_array)
+    trials_array = trial_pair("John", "Mary", relation = "knows", present = false)
 
     var index = 0
 
     while(index < trials_array.length) {
+
+	console.log(trials_array[index])
 	
 	timeline.push(trials_array[index][0])
 	timeline.push(trials_array[index][1])
