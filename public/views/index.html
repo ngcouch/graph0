@@ -27,12 +27,15 @@
     }
     */
 
-    // Create a function that takes an ordered pair of strings A, B and return a list containing two jsPsych trials. The first trial probes the edge between the strings, and the second provides feedback on the participant's response.
+    // Create a function that takes an ordered pair of strings A, B and return a list containing
+    // two jsPsych trials. The first trial probes the edge between the strings, and the second
+    // provides feedback on the participant's response.
 
     function trial_pair(A, B, relation = "knows", present = true, randomize=false) {
 
 	var trials = []
 
+	
 	var trial_stim = "<p>" + A + " " + relation + " " + B + "</p>"
 
 	var stim_trial = {type: "html-keyboard-response",
@@ -75,6 +78,12 @@
 	return [stim_trial, feedback_trial]
 
     }
+
+    // create the network structure
+
+    var network = [["John", "Mary", true],
+		   ["Mary", "Mark", true],
+		   ["Mary", "Mark", false]]
     
     // Structure and assemble the experiment.
     
@@ -92,9 +101,20 @@
 
     timeline.push(instructions)
 
-    var trials_array = [trial_pair("John", "Mary", relation = "knows", present = false)]
-
+    // create and push the network trials
+    var trials_array = []
+    
     var index = 0
+    
+    while (index < network.length) {
+
+	trials_array.push(trial_pair(network[i][0], network[i][1], knows, present = network[i][2]))
+	
+	index +=1
+
+    }
+
+    index = 0
 
     while(index < trials_array.length) {
 
