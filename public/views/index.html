@@ -17,11 +17,6 @@
 
   <script>
 
-
-    // Set up the conditions dictionary
-
-    // Get participant information and use it to derive their condition number.
-
     var ID = window.prompt("Enter your participant ID:")
 
     /*
@@ -31,7 +26,56 @@
 
     }
     */
- 
+
+    // Create a function that takes an ordered pair of strings A, B and return a list containing two jsPsych trials. The first trial probes the edge between the strings, and the second provides feedback on the participant's response.
+
+    function trial_pair(A, B, relation = "knows" present = true, randomize=false) {
+
+	var trials = []
+
+	trial_stim = "<p>" A + " " + relation + " " + B + "</p>"
+
+	var stim_trial = {type: "html-keyboard-response",
+		      stimulus: "TBD",
+		      choices: [70, 74],
+		      data: {present: present},
+		      on_finish: function(data) {
+			  if ((data.keypress == 70)==present) {
+
+			      data.correct = true;
+			  
+			  }
+			  else {
+			      data.correct = false;
+			  }
+		      }
+		     }
+
+	var feedback_trial = {type: "html-keyboard-response",
+			      stimulus: trial_stim + function() {
+				  var last_trial = jsPsych.data.get().last(1).values()[0].correct;
+				  if (last_trial) {
+				      return "<p><big>Correct!</big></p>"
+				  }
+				  else {
+				      return "<p><big>Incorrect!</big></p>"
+				  }
+			      },
+			      response_ends_trial: function() {
+				  var last_trial = jsPsych.data.get().last(1).values()[0].correct;
+				  if (last_trial) {
+				      return 500
+				  }
+				  else {
+				      return 1000
+				  }
+			      }
+			     }
+			      	
+	return [stim_trial, feedback_trial]
+
+    }
+    
     // Structure and assemble the experiment.
     
     var timeline = []
@@ -46,7 +90,19 @@
 			choices: [32]
 		       };
 
-    timeline.push(instructions)
+	timeline.push(instructions)
+
+	trials_array = trial_pair("John", "Mary", present = false)
+
+    for (let i = 0, i < trials_array.length; i++ {
+
+	timeline.push(trials_array[i][0])
+	timeline.oush(trials_array[i][1])
+	
+    }
+	 
+
+	
 
     
     jsPsych.init({
