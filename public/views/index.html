@@ -95,11 +95,14 @@
 	trials_array = trial_pair("John", "Mary", present = false)
 
 
-    for(index = 0, index < trials_array.length, index++) {
+    var index = 0
 
+    while(index < trials_array.length) {
+	
 	timeline.push(trials_array[index][0])
 	timeline.push(trials_array[index][1])
-	
+
+	index += 1
     }
 			 
     jsPsych.init({
