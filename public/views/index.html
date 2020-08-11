@@ -57,6 +57,7 @@
 	var feedback_trial = {type: "html-keyboard-response",
 			      stimulus:function() {
 				  var last_trial = jsPsych.data.get().last(1).values()[0].correct;
+				  console.log(last_trial)
 				  if (last_trial) {
 				      return  trial_stim + "<p><big>Correct!</big></p>"
 				  }
