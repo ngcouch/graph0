@@ -42,7 +42,10 @@
 		      stimulus: trial_stim,
 		      choices: [70, 74],
 		      data: {present: present},
-		      on_finish: function(data) {
+			  on_finish: function(data) {
+
+			      console.log(present)
+			      console.log(data.keypress==70)
 			  if ((present)) {
 
 			      if (data.keypress==70) {
@@ -129,8 +132,6 @@
     index = 0
 
     while(index < trials_array.length) {
-
-	console.log(trials_array[index])
 	
 	timeline.push(trials_array[index][0])
 	timeline.push(trials_array[index][1])
