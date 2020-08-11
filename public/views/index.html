@@ -31,7 +31,7 @@
     // two jsPsych trials. The first trial probes the edge between the strings, and the second
     // provides feedback on the participant's response.
 
-    function trial_pair(A, B, relation = "causes", present = true, randomize=false) {
+    function trial_pair(A, B, relation = "causes", present = true, randomize=false, block) {
 
 	var trials = []
 
@@ -41,7 +41,9 @@
 	var stim_trial = {type: "html-keyboard-response",
 		      stimulus: trial_stim,
 		      choices: [70, 74],
-		      data: {present: present},
+			  data: {present: present,
+				 block: block
+				 type: "probe"},
 			  on_finish: function(data) {
 
 			  if ((present)) {
@@ -67,6 +69,7 @@
 		     }
 
 	var feedback_trial = {type: "html-keyboard-response",
+			      data: {type: "feedback"},
 			      stimulus:function() {
 				  var last_trial = jsPsych.data.get().last(1).values()[0].correct;
 				  console.log(last_trial)
@@ -130,11 +133,13 @@
 	
 	for (index = 0; index < network.length; index++){
 
-	    var trials = trial_pair(network[index][0], network[index][1],relation = network[index][3], present = network[index][2])
+	    var trials = trial_pair(network[index][0], network[index][1],relation = network[index][3], present = network[index][2], block = block)
 
 	    block_array.push(trials)
 
 	}
+
+	block_array = jsPsych.randomization.shuffle(block_array)
 
 
 	for (index = 0; index < block_array.length; index++) {
