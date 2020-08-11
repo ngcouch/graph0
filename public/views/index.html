@@ -98,8 +98,6 @@
 		   ["B", "C", true, "causes"],
 		   ["A", "B", true, "prevents"]]
 
-    network = jsPsych.randomization.shuffle(network)
-    
     // Structure and assemble the experiment.
     
     var timeline = []
@@ -117,41 +115,37 @@
     timeline.push(instructions)
 
     // create and push the network trials
-    var trials_array = []
-
     // First, loop over the desired number of blocks, constructing a random order of trials
     // for each block.
-
+    
     var block = 0
+    var index = 0
     var block_num = 5
-
-    while (block < block_num) {
+    var block_array = []
+    var trials_array = []
+    
+    for(block = 0, block < block_num; block++) {
 
 	console.log(block)
-	var index = 0
-	var block_array = []
-    
-	while (index < network.length) {
 
-	    block_array.push(trial_pair(network[index][0],network[index][1],relation = network[index][3],present = network[index][2]))
+	block_array = []
 	
-	    index +=1
+	for (index = 0, index < network.length, index++){
+
+	    var trials = trail_pair(network[index][0], network[index][1],relation = network[index][3], present = network[index][2])
+	    block_array.push(trials)
 
 	}
 
-	block_array = jsPsych.randomization.shuffle(block_array)
-
-	index = 0
-
-	while (index < block_array.length) {
+	for (index = 0, index < block_array.length, index++) {
 
 	    trials_array.push(block_array[index][0])
 	    trials_array.push(block_array[index][1])
 
 	}
 
-	block += 1
     }
+
 			 
     jsPsych.init({
 	timeline: timeline,
