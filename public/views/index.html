@@ -130,14 +130,14 @@
 
 	block_array = []
 	
-	for (index = 0, index < network.length, index++){
+	for (index = 0; index < network.length; index++){
 
 	    var trials = trail_pair(network[index][0], network[index][1],relation = network[index][3], present = network[index][2])
 	    block_array.push(trials)
 
 	}
 
-	for (index = 0, index < block_array.length, index++) {
+	for (index = 0; index < block_array.length; index++) {
 
 	    trials_array.push(block_array[index][0])
 	    trials_array.push(block_array[index][1])
