@@ -126,20 +126,18 @@
     var block_num = 5
 
     while (block < block_num) {
-    
-	   var index = 0
-	   var block_array = []
-    
-	   while (index < network.length) {
 
-	       block_array.push(trial_pair(network[index][0],
-					   network[index][1],
-					   relation = network[index][3],
-					   present = network[index][2]))
+	console.log(block)
+	var index = 0
+	var block_array = []
+    
+	while (index < network.length) {
+
+	    block_array.push(trial_pair(network[index][0],network[index][1],relation = network[index][3],present = network[index][2]))
 	
-	       index +=1
+	    index +=1
 
-	   }
+	}
 
 	block_array = jsPsych.randomization.shuffle(block_array)
 
