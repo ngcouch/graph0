@@ -43,14 +43,24 @@
 		      choices: [70, 74],
 		      data: {present: present},
 		      on_finish: function(data) {
-			  if ((data.keypress == 70)==present) {
+			  if ((present)) {
 
-			      data.correct = true;
-			  
+			      if (keypress==70) {
+				  data.correct = true;
+			      }
+			      else {
+				  data.correct = false;
+			      }
+			      
 			  }
 			  else {
-			      data.correct = false;
-			  }
+
+			      if (keypress==74) {
+				  data.correct = true;
+			      }
+			      else {
+				  data.correct = false;
+			      }
 		      }
 		     }
 
