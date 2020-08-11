@@ -126,16 +126,16 @@
     
     for(block = 0; block < block_num; block++) {
 
-	console.log(block)
-
 	block_array = []
 	
 	for (index = 0; index < network.length; index++){
 
 	    var trials = trial_pair(network[index][0], network[index][1],relation = network[index][3], present = network[index][2])
+
 	    block_array.push(trials)
 
 	}
+
 
 	for (index = 0; index < block_array.length; index++) {
 
@@ -145,6 +145,13 @@
 	}
 
     }
+
+    for(index = 0; index < trials_array.length; index ++) {
+
+	timeline.push(trials_array[index])
+	
+    }
+    
 
 			 
     jsPsych.init({
