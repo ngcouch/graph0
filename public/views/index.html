@@ -44,8 +44,6 @@
 		      data: {present: present},
 			  on_finish: function(data) {
 
-			      console.log(present)
-			      console.log(data.key_press)
 			  if ((present)) {
 
 			      if (data.key_press==70) {
@@ -99,6 +97,8 @@
     var network = [["John", "Mary", true],
 		   ["Mary", "Mark", true],
 		   ["Mary", "Mark", false]]
+
+    network = jsPsych.randomization.shuffle(network)
     
     // Structure and assemble the experiment.
     
