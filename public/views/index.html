@@ -30,6 +30,9 @@
     }
 
     var condition = conditions[ID]
+
+    jsPsych.data.addProperties({subject: ID,
+				condition: condition})
 		       
 
     // Structure and assemble the experiment.
@@ -41,21 +44,48 @@
 		  };
     timeline.push(welcome)
 
+    if (condition == "causes") {
+
     var instructions = {type: "html-keyboard-response",
-			stimulus: "These are the introductory instructions. Press spacebar to continue.",
+			stimulus: "In this experiment, you will be asked to learn a network of causal relations. When we say 'causes', we mean the word in its everyday normal sense, such as 'Smoking causes lung cancer' or 'A traffic jams causes delays.' Your method is trial and error: you will not know the answers at the start, but you will learn the over the course of the study.<p>Press spacebar to continue.</p>",
 			choices: [32]
 		       };
     
     // TODO: Change instructions page depending on the condition
     var learning_instructions = {type: "html-keyboard-response",
-			stimulus: "<p style='text-align:left;max-width:800px;'>These are the instructions. Press space to continue.</p>",
+			stimulus: "<p style='text-align:left;max-width:800px;'>In this portion of the experiment, you will be shown various possible relationships. If you think that the relationship displayed holds true, then press <strong>F</strong>. If think it doesn't hold true, press <strong>J</strong>. For instance, if you read 'Striking a match causes it to light', you should press <strong>F</strong>. If instead you read 'Fairies cause lightbulbs to light', you would press <strong>J</strong>. If you do not know, make your best guess. After every trial, you will be given feedback as to whether your response was correct. Press space to continue.</p>",
 			choices: [32]
 				};
 
     var test_instructions = {type: "html-keyboard-response",
-			     stimulus: "<p>These are the instructions for the test trials. Press space to continue.</p>",
+			     stimulus: "<p>In this portion of the experiment, your memory for the sentences shown earlier will be tested. You will be shown the sentences again, but this time you will not be given feedback on your answer. Press spacebar to continue.</p>",
 			     choices: [32]
 			    };
+
+    }
+
+    else {
+
+   var instructions = {type: "html-keyboard-response",
+			stimulus: "In this experiment, you will learn a new word, quibits, by learning whether various sentences using the word are true or false. You method will be trial and error: you will not knw the answers at the start, but you will learn them over the course of the study.<p>Press spacebar to continue.</p>",
+			choices: [32]
+		       };
+    
+    // TODO: Change instructions page depending on the condition
+    var learning_instructions = {type: "html-keyboard-response",
+			stimulus: "<p style='text-align:left;max-width:800px;'>In this portion of the experiment, you will be shown various possible quibits relationships. If you think that the relationship displayed holds true, then press <strong>F</strong>. If you think that it doesn't, press <strong>J</strong>. If you do not know, make your best guess. After every trial, you will be given feedback as to whether your response was correct. Press space to continue.</p>",
+			choices: [32]
+				};
+
+    var test_instructions = {type: "html-keyboard-response",
+			     stimulus: "<p>In this portion of the experiment, your memory for the sentences shown earlier will be tested. You will be shown the sentences again, but this time you will not be given feedback on your answer. Press spacebar to continue.</p>",
+			     choices: [32]
+			    };
+
+    }
+    
+    
+
 
     timeline.push(instructions)
 			     
@@ -69,13 +99,13 @@
 		     "E": letters1[4],
 		     "F": letters1[5],
 		     "G": letters1[6]}
-    var assign2  = {"H": letters2[0],
-		    "I": letters2[1],
-		    "J": letters2[2],
-		    "K": letters2[3],
-		    "L": letters2[4],
-		    "M": letters2[5],
-		    "N": letters2[6]}
+    var assign2  = {"A": letters2[0],
+		    "B": letters2[1],
+		    "C": letters2[2],
+		    "D": letters2[3],
+		    "E": letters2[4],
+		    "F": letters2[5],
+		    "G": letters2[6]}
     
     var assignments = [assign1, assign2]
     
@@ -103,8 +133,8 @@
 	    var first = assignments[n][networks[n].props[i][0]]
 	    var second = assignments[n][networks[n].props[i][1]]
 	    var correct = networks[n].props[i][2]
-	    var trials = trial_pair(first, second, correct, b, n, networks[n].name, true)
-	    block_trials.push(trials)
+	    var trialp = trial_pair(first, second, condition, correct, b, n, networks[n].name, true)
+	    block_trials.push(trialp)
 
 	}
 
@@ -134,8 +164,8 @@
 	    var first = assignments[n][networks[n].props[i][0]]
 	    var second = assignments[n][networks[n].props[i][1]]
 	    var correct = networks[n].props[i][2]
-	    var trials = trial_pair(first, second, correct, "test", n, networks[n].name, false)
-	    block_trials.push(trials)
+	    var trialp = trial_pair(first, second, condition, correct, "test", n, networks[n].name, false)
+	    block_trials.push(trialp)
 	    
 	}
 	
@@ -143,15 +173,10 @@
 	trials.push(block_trials)
     }
     
-}
-    
-    
-    trials = trials.flat(4)
-    timeline.push(trials)
-    timeline = timeline.flat()
+    }
+    trials = trials.flat(5)
+    timeline = timeline.concat(trials)
 
-    console.log(trials)
-    
     jsPsych.init({
 	timeline: timeline,
 	on_finish: function() {
