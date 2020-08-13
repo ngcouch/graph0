@@ -9,7 +9,7 @@ function trial_pair(A, B, relation = "causes", present = true, block, network, t
 		      choices: [70, 74],
 		      data: {present: present,
 			     block: block,
-			     network, network:
+			     network, network,
 			     type: type},
 		      on_finish: function(data) {
 
