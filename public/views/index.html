@@ -22,13 +22,12 @@
 
     var ID = window.prompt("Enter your participant ID:")
 
-    /*
+    
     while (!Object.keys(conditions).includes(ID)) {
 
 	var ID = window.prompt("ID not found. Please check again, or contact the experimenter.")
 
     }
-    */
 
     // Structure and assemble the experiment.
     
@@ -62,7 +61,7 @@
 	
 	for (index = 0; index < network.length; index++){
 
-	    var trials = trial_pair(network[index][0], network[index][1],relation = network[index][3], present = network[index][2], block = block)
+	    var trials = trial_pair(network[index][0], network[index][1],relation = condition, present = network[index][2], block = block)
 
 	    block_array.push(trials)
 

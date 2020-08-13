@@ -1,4 +1,4 @@
-var conditions = {1: 1,
-		  2: 1,
-		  3: 1,
-		  4: 1}
+var conditions = {1: "quibits",
+		  2: "causes",
+		  3: "quibits",
+		  4: "causes"}
