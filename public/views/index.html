@@ -142,9 +142,9 @@
     
     
     trials = trials.flat(4)
-  
-
-			 
+    timeline.push(trials)
+    timeline = timeline.flat()
+    
     jsPsych.init({
 	timeline: timeline,
 	on_finish: function() {
