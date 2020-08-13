@@ -41,6 +41,11 @@
 		  };
     timeline.push(welcome)
 
+    var instructions = {type: "html-keyboard-response",
+			stimulus: "These are the introductory instructions. Press spacebar to continue.",
+			choices: [32]
+		       };
+    
     // TODO: Change instructions page depending on the condition
     var learning_instructions = {type: "html-keyboard-response",
 			stimulus: "<p style='text-align:left;max-width:800px;'>These are the instructions. Press space to continue.</p>",
