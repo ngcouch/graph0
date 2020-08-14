@@ -25,7 +25,7 @@ var primates = {type: "survey-multi-choice",
 
 
 var gas = {type: "survey-multi-choice",
-	   questions: [{prompt: "</p>The gas mileage for Peter’s car is 21 miles per gallon when the car travels at an average speed of 50 miles per hour. The car’s gas tank has 17 gallons of gas at the beginning of a trip. If Peter’s car travels at an average speed of 50 miles per hour, which of the following functions f models the number of gallons of gas remaining in the tank t hours after the trip begins?</p>",
+	   questions: [{prompt: "<p style='text-align:left;max-width:800px'>The gas mileage for Peter’s car is 21 miles per gallon when the car travels at an average speed of 50 miles per hour. The car’s gas tank has 17 gallons of gas at the beginning of a trip. If Peter’s car travels at an average speed of 50 miles per hour, which of the following functions f models the number of gallons of gas remaining in the tank t hours after the trip begins?</p>",
 			options: ["f(t) = 17 - 21/(50t)", "f(t) = 17 - (50t)/21", "f(t) = (17 - 21t)/50", "f(t) = (17 - 50t)/21"]}],
 	   data: {answer: "1"}
 	  }
