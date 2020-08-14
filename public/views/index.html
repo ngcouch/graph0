@@ -108,6 +108,7 @@
 		    "G": letters2[6]}
     
     var assignments = [assign1, assign2]
+    var letters     = [Object.keys(assign1), Object.keys(assign2)]
     
     
     // Randomize order of networks
@@ -121,62 +122,68 @@
     for(n = 0; n < networks.length; n++) {
 
     // Create instructions page
-    trials.push(learning_instructions)
+	trials.push(learning_instructions)
+
+	var node_list = {type: "html-keyboard-response",
+			 stimulus: "<p> These are the elements that will be used in the sentences you will study: </p> <p>" + letters[n].join(" ") + "</p> <p> Press spacebar to continue.</p>",
+			 choices: [32]}
+
+	trials.push(node_list)
 
     // Create blocks of training trials
-    for (b = 0; b < blocks; b++) {
-
-	// Within each block, create a random list of trials teaching the 
-	var block_trials = []
-	for(i=0; i < networks[n].props.length; i++) {
-
-	    var first = assignments[n][networks[n].props[i][0]]
-	    var second = assignments[n][networks[n].props[i][1]]
-	    var correct = networks[n].props[i][2]
-	    var trialp = trial_pair(first, second, condition, correct, b, n, networks[n].name, true)
-	    block_trials.push(trialp)
-
-	}
-
-	// randomize the order of the trials within a block
-	block_trials = jsPsych.randomization.shuffle(block_trials)
-	// append to the network 
-	trials.push(block_trials)
-
-    }
-
-    // Create distractor task
-
-    var distractor = {type: "html-keyboard-response",
-		      stimulus: "<p>This is a distractor task. Please wait 5 minutes, and press spacebar when ready to continue.</p>",
-		      choices: [32]}
-
-    trials.push(distractor)
-    trials.push(test_instructions)
-    // Create test trials
-    
-    test_blocks = 2
-    for (b=0; b < test_blocks; b++) {
-	
-	var block_trials = []
-	for(i=0; i < networks[n].props.length; i++) {
+	for (b = 0; b < blocks; b++) {
 	    
-	    var first = assignments[n][networks[n].props[i][0]]
-	    var second = assignments[n][networks[n].props[i][1]]
-	    var correct = networks[n].props[i][2]
-	    var trialp = trial_pair(first, second, condition, correct, "test", n, networks[n].name, false)
-	    block_trials.push(trialp)
+	    // Within each block, create a random list of trials teaching the 
+	    var block_trials = []
+	    for(i=0; i < networks[n].props.length; i++) {
+		
+		var first = assignments[n][networks[n].props[i][0]]
+		var second = assignments[n][networks[n].props[i][1]]
+		var correct = networks[n].props[i][2]
+		var trialp = trial_pair(first, second, condition, correct, b, n, networks[n].name, true)
+		block_trials.push(trialp)
+		
+	    }
+	    
+	    // randomize the order of the trials within a block
+	    block_trials = jsPsych.randomization.shuffle(block_trials)
+	    // append to the network 
+	    trials.push(block_trials)
 	    
 	}
 	
-	block_trials = jsPsych.randomization.shuffle(block_trials)
-	trials.push(block_trials)
-    }
-    
+	// Create distractor task
+	
+	var distractor = {type: "html-keyboard-response",
+			  stimulus: "<p>This is a distractor task. Please wait 5 minutes, and press spacebar when ready to continue.</p>",
+			  choices: [32]}
+	
+	trials.push(distractor)
+	trials.push(test_instructions)
+	// Create test trials
+	
+	test_blocks = 2
+	for (b=0; b < test_blocks; b++) {
+	    
+	    var block_trials = []
+	    for(i=0; i < networks[n].props.length; i++) {
+		
+		var first = assignments[n][networks[n].props[i][0]]
+		var second = assignments[n][networks[n].props[i][1]]
+		var correct = networks[n].props[i][2]
+		var trialp = trial_pair(first, second, condition, correct, "test", n, networks[n].name, false)
+		block_trials.push(trialp)
+		
+	    }
+	    
+	    block_trials = jsPsych.randomization.shuffle(block_trials)
+	    trials.push(block_trials)
+	}
+	
     }
     trials = trials.flat(5)
     timeline = timeline.concat(trials)
-
+    
     jsPsych.init({
 	timeline: timeline,
 	on_finish: function() {
