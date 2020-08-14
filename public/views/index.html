@@ -5,13 +5,14 @@
 
     <script type="text/javascript" src="jsPsych/jspsych.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-html-keyboard-response.js"></script>
-    <script type="text/javascript" src="jsPsych/plugins/jspsych-image-keyboard-response.js"></script>
+    <script type="text/javascript" src="jsPsych/plugins/jspsych-survey-multi-choice.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-survey-text.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="jsPsych/plugins/jspsych-html-slider-response.js"></script>
     <script type="text/javascript" src="experiment-data/functions.js"></script>
     <script type="text/javascript" src="experiment-data/networks.js"></script>
     <script type="text/javascript" src="experiment-data/conditions.js"></script>
+    <script type="text/javascript" src="experiment-data/distractors.js"></script>
     <link href="jsPsych/css/jspsych.css" rel="stylesheet" type="text/css"/>
 
   </head>
@@ -83,9 +84,6 @@
 			    };
 
     }
-    
-    
-
 
     timeline.push(instructions)
 			     
@@ -153,12 +151,14 @@
 	}
 	
 	// Create distractor task
+
+	var distractor_instructions = {type: "html-keyboard-response",
+				    stimulus: "<p>In this portion of the experiment, you will be asked a number of math problems. You may use whatever tools you deem necessary to solve the problems. Please take your time and ensure that your answers are your best guess.</p> <p> Press spacebar to continue</p>",
+				    choices: [32]
+				   }
 	
-	var distractor = {type: "html-keyboard-response",
-			  stimulus: "<p>This is a distractor task. Please wait 5 minutes, and press spacebar when ready to continue.</p>",
-			  choices: [32]}
-	
-	trials.push(distractor)
+	trial.push(distractor_instructions)
+	trials.push(distractor_questions[n])
 	trials.push(test_instructions)
 	// Create test trials
 	
