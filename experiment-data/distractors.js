@@ -42,3 +42,24 @@ distractor_questions = jsPsych.randomization.shuffle(distractor_questions)
 // Divide the distractor questions into two sets
 distractor_questions = [[distractor_questions[0], distractor_questions[1], distractor_questions[2]],
 			[distractor_questions[3], distractor_questions[4], distractor_questions[5]]]
+
+
+var intermediate_intro = {type: "html-keyboard-response",
+			  stimulus: "<p>In this portion of the experiment, you will complete a few more math problems. Again, use whatever tools you deem necessary. Please take your time and ensure your answers reflect your best guess.</p> <p>Press spacebar to continue. </p>",
+			  choices: [32]
+			 }
+
+var intermediate1 = {type: "survey-multi-choice",
+	    questions: [{prompt: "On Saturday afternoon, Armand sent <i>m</i> text messages each hour for 5 hours, and Tyrone sent text <i>p</i> messages each hour for 4 hours. Which of the following represents the total number of messages sent by Armand and Tyrone on Saturday afternoon?",
+			 options: ["9<i>mp</i>", "20<i>mp</i>" , "5<i>m</i> + 4<i>p</i>" , "4<i>m</i> + 5<i>p</i>"]}],
+	    data: {answer: "3"}
+	   }
+
+
+var intermediate2 = {type: "survey-multi-choice",
+	    questions: [{prompt: "If 16 + 4<i>x</i> is 10 more than 14, waht is the value of 8<i>x</i>?",
+			 options: ["2", "6" , "16" , "80"]}],
+	    data: {answer: "3"}
+	   }
+
+var intermediate_trials = [intermediate_intro, intermediate1, intermediate2]
