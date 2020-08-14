@@ -106,7 +106,8 @@
 		    "G": letters2[6]}
     
     var assignments = [assign1, assign2]
-    var letters     = [Object.keys(assign1), Object.keys(assign2)]
+    var letters     = [Object.keys(assign1).map(function(key) {return assign1[key]}),
+		       Object.keys(assign2).map(function(key) {return assign2[key]})]
     
     
     // Randomize order of networks
