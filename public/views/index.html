@@ -40,11 +40,6 @@
     
     var timeline = []
 
-    var welcome = {type: "html-keyboard-response",
-		   stimulus: "Welcome to the experiment, and thank you for your time! Press any key to continue."
-		  };
-    timeline.push(welcome)
-
     if (condition == "causes") {
 
     var instructions = {type: "html-keyboard-response",
@@ -54,7 +49,7 @@
     
     // TODO: Change instructions page depending on the condition
     var learning_instructions = {type: "html-keyboard-response",
-			stimulus: "<p style='text-align:left;max-width:800px;'>In this portion of the experiment, you will be shown various possible relationships. If you think that the relationship displayed holds true, then press <strong>F</strong>. If think it doesn't hold true, press <strong>J</strong>. For instance, if you read 'Striking a match causes it to light', you should press <strong>F</strong>. If instead you read 'Fairies cause lightbulbs to light', you would press <strong>J</strong>. If you do not know, make your best guess. After every trial, you will be given feedback as to whether your response was correct. Press space to continue.</p>",
+			stimulus: "<p style='text-align:left;max-width:800px;'>In this portion of the experiment, you will be shown various possible causal relationships between elements. If you think that the sentence displayed is TRUE, then press <strong>F</strong>. If think it is FALSE, press <strong>J</strong>. If you do not know, make your best guess. After every trial, you will be given feedback as to whether your response was correct. Press space to continue.</p>",
 			choices: [32]
 				};
 
@@ -68,13 +63,13 @@
     else {
 
    var instructions = {type: "html-keyboard-response",
-			stimulus: "<p style='text-align:left;max-width:800px;'In this experiment, you will learn a new word, quibits, by learning whether various sentences using the word are true or false. You method will be trial and error: you will not knw the answers at the start, but you will learn them over the course of the study.</p><p>Press spacebar to continue.</p>",
-			choices: [32]
-		       };
+			stimulus: "<p style='text-align:left;max-width:800px;'In this experiment, you will learn a new relation, quibits, by learning whether various sentences using the word are true or false. By 'relation', we mean everyday normal relations, such as 'belongs to the same fraternity', 'is taller than', or 'is friends with'. You method will be trial and error: you will not knw the answers at the start, but you will learn them over the course of the study.</p><p>Press spacebar to continue.</p>",
+		       choices: [32]
+		      };
     
     // TODO: Change instructions page depending on the condition
     var learning_instructions = {type: "html-keyboard-response",
-			stimulus: "<p style='text-align:left;max-width:800px;'>In this portion of the experiment, you will be shown various possible quibits relationships. If you think that the relationship displayed holds true, then press <strong>F</strong>. If you think that it doesn't, press <strong>J</strong>. If you do not know, make your best guess. After every trial, you will be given feedback as to whether your response was correct.</p> Press space to continue.</p>",
+			stimulus: "<p style='text-align:left;max-width:800px;'>In this portion of the experiment, you will be shown various possible quibits sentences. If you think that the sentence displayed is TRUE, then press <strong>F</strong>. If you think that is FALSE, press <strong>J</strong>. If you do not know, make your best guess. After every trial, you will be given feedback as to whether your response was correct.</p> Press space to continue.</p>",
 			choices: [32]
 				};
 
@@ -88,22 +83,20 @@
     timeline.push(instructions)
 			     
     // Create random label assignments
-    var letters1 = jsPsych.randomization.shuffle(["A", "B", "C", "D", "E", "F", "G"])
-    var letters2 = jsPsych.randomization.shuffle(["H", "I", "J", "K", "L", "M", "N"])
+    var letters1 = jsPsych.randomization.shuffle(["A", "B", "C", "D", "E", "F"])
+    var letters2 = jsPsych.randomization.shuffle(["H", "I", "J", "K", "L", "M"])
     var assign1  =  {"A": letters1[0],
 		     "B": letters1[1],
 		     "C": letters1[2],
 		     "D": letters1[3],
 		     "E": letters1[4],
-		     "F": letters1[5],
-		     "G": letters1[6]}
+		     "F": letters1[5]}
     var assign2  = {"A": letters2[0],
 		    "B": letters2[1],
 		    "C": letters2[2],
 		    "D": letters2[3],
 		    "E": letters2[4],
-		    "F": letters2[5],
-		    "G": letters2[6]}
+		    "F": letters2[5]}
     
     var assignments = [assign1, assign2]
     var letters     = [Object.keys(assign1).map(function(key) {return assign1[key]}),

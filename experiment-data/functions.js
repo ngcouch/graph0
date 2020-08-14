@@ -43,16 +43,17 @@ function trial_pair(A, B, relation = "causes", present = true, block, network, t
 			      choices: [],
 			      stimulus:function() {
 				  var last_trial = jsPsych.data.get().last(1).values()[0].correct;
+				  var present = jsPsych.data.get().last(1).values()[0].present;
 				  if (last_trial) {
-				      return  trial_stim + "<p><big>Correct!</big></p>"
+				      return  trial_stim + `<p><big>Correct!</big></p><p> The sentence is ${present}.</p>`
 				  }
 				  else {
-				      return  trial_stim + "<p><big>Incorrect!</big></p>"
+				      return  trial_stim + `<p><big>Incorrect!</big></p><p>The sentence is ${present}.</p>`
 				  }
 			      },
 			      trial_duration: function() {
 				  if (jsPsych.data.get().last(1).values()[0].correct) {
-				      return 500
+				      return 1000
 				  }
 				  else {
 				      return 2000
